@@ -3,16 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Vita | Our Menu</title>
+    <title>La Vita | Our Premium Menu</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- വെബ്‌സൈറ്റിലെ പഴയ സ്റ്റൈലുകൾ കിട്ടാൻ -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body style="background: #11100e; color: #fff; text-align: center; padding: 100px 20px; font-family: sans-serif;">
-    <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: #c9a66b; margin-bottom: 20px;">
-        LA VITA MENU
-    </h1>
-    <p style="color: #77716a; font-size: 1.2rem;">Our premium handcrafted cuisine page is under construction.</p>
-    <a href="index.html" style="display: inline-block; margin-top: 40px; color: #c9a66b; text-decoration: underline;">
-        Back to Home
-    </a>
+<body style="background: var(--cream, #f7f3ec); color: var(--text, #292621); font-family: 'Inter', sans-serif; padding: 60px 0;">
+
+    <div class="container">
+        <!-- Back to Home Button -->
+        <a href="index.html" style="color: var(--gold, #c9a66b); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 40px; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px;">
+            <i class="fas fa-arrow-left"></i> BACK TO HOME
+        </a>
+
+        <!-- Menu Section Heading -->
+        <div class="section-heading" style="text-align: center; margin-bottom: 50px;">
+            <span class="section-label">OUR MENU</span>
+            <h1 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 500; line-height: 1.1; margin-top: 10px;">
+                Crafted With <span>Passion.</span>
+            </h1>
+            <p style="color: var(--text-light, #77716a); max-width: 600px; margin: 20px auto 0;">
+                A carefully curated selection of dishes designed to delight every palate.
+            </p>
+        </div>
+
+        <!-- Menu Categories Tabs -->
+        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px;">
+            <button class="btn btn-dark" style="padding: 10px 20px; font-size: 0.75rem;">STARTERS</button>
+            <button class="btn" style="border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; font-size: 0.75rem; background: transparent; color: var(--text);">MAIN COURSE</button>
+            <button class="btn" style="border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; font-size: 0.75rem; background: transparent; color: var(--text);">DESSERTS</button>
+            <button class="btn" style="border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; font-size: 0.75rem; background: transparent; color: var(--text);">DRINKS</button>
+        </div>
+
+        <!-- Menu Items Grid (2 Column Content) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px 60px;">
+            
+            <!-- Item 1 -->
+            <div style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Burrata Garden Salad</h3>
+                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$18</span>
+                </div>
+                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Truffle Arancini</h3>
+                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$16</span>
+                </div>
+                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Crispy risotto balls with black truffle and parmesan.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Garlic Butter Prawns</h3>
+                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$30</span>
+                </div>
+                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Succulent prawns with roasted garlic, herbs, and lemon.</p>
+            </div>
+
+            <!-- Item 4 -->
+            <div style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Wild Mushroom Bruschetta</h3>
+                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$15</span>
+                </div>
+                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Toasted sourdough with wild mushrooms and parmesan.</p>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>
