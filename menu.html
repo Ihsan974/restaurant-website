@@ -9,114 +9,104 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- വെബ്‌സൈറ്റിലെ പഴയ സ്റ്റൈലുകൾ ലിങ്ക് ചെയ്യുന്നു -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body style="background: var(--cream, #f7f3ec); color: var(--text, #292621); font-family: 'Inter', sans-serif; padding: 60px 0;">
+<body style="background: #f7f3ec; color: #292621; font-family: 'Inter', sans-serif; padding: 60px 0; margin: 0;">
 
-    <div class="container">
+    <div class="container" style="width: min(calc(100% - 40px), 1200px); margin: auto;">
+        
         <!-- Back to Home Button -->
-        <a href="index.html" style="color: var(--gold, #c9a66b); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 40px; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px;">
+        <a href="index.html" style="color: #c9a66b; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 40px; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px;">
             <i class="fas fa-arrow-left"></i> BACK TO HOME
         </a>
 
         <!-- Menu Section Heading -->
-        <div class="section-heading" style="text-align: center; margin-bottom: 50px;">
-            <span class="section-label">OUR MENU</span>
-            <h1 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 500; line-height: 1.1; margin-top: 10px;">
-                Crafted With <span>Passion.</span>
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;">
+            <span style="display: inline-block; color: #c9a66b; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; margin-bottom: 18px;">OUR MENU</span>
+            <h1 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 500; line-height: 1.1; margin: 10px 0 0; color: #11100e;">
+                Crafted With <span style="color: #c9a66b;">Passion.</span>
             </h1>
-            <p style="color: var(--text-light, #77716a); max-width: 600px; margin: 20px auto 0;">
+            <p style="color: #77716a; margin-top: 20px; font-size: 1rem; line-height: 1.7;">
                 A carefully curated selection of dishes designed to delight every palate.
             </p>
         </div>
 
         <!-- Menu Categories Tabs Buttons -->
         <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px;">
-            <button class="btn btn-dark tab-btn active" data-category="starters" style="padding: 10px 20px; font-size: 0.75rem;">STARTERS</button>
-            <button class="btn tab-btn" data-category="main-course" style="border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; font-size: 0.75rem; background: transparent; color: var(--text);">MAIN COURSE</button>
-            <button class="btn tab-btn" data-category="desserts" style="border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; font-size: 0.75rem; background: transparent; color: var(--text);">DESSERTS</button>
-            <button class="btn tab-btn" data-category="drinks" style="border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; font-size: 0.75rem; background: transparent; color: var(--text);">DRINKS</button>
+            <button class="menu-tab-btn" data-category="starters" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: none; background: #11100e; color: #ffffff; transition: 0.3s ease;">STARTERS</button>
+            <button class="menu-tab-btn" data-category="main-course" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: transparent; color: #292621; transition: 0.3s ease;">MAIN COURSE</button>
+            <button class="menu-tab-btn" data-category="desserts" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: transparent; color: #292621; transition: 0.3s ease;">DESSERTS</button>
+            <button class="menu-tab-btn" data-category="drinks" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: transparent; color: #292621; transition: 0.3s ease;">DRINKS</button>
         </div>
 
         <!-- Menu Items Grid Container -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px 60px;">
+        <div id="menu-items-wrapper" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px 60px;">
             
-            <!-- ================= STARTERS (IMAGE 1) ================= -->
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+            <!-- ================= STARTERS ================= -->
+            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Burrata Garden Salad</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$18</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Burrata Garden Salad</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$18</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
             </div>
 
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Truffle Arancini</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$16</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Truffle Arancini</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$16</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Crispy risotto balls with black truffle and parmesan.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Crispy risotto balls with black truffle and parmesan.</p>
             </div>
 
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Garlic Butter Prawns</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$30</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Garlic Butter Prawns</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$30</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Succulent prawns with roasted garlic, herbs, and lemon.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Succulent prawns with roasted garlic, herbs, and lemon.</p>
             </div>
 
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px;">
+            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Wild Mushroom Bruschetta</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$15</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Wild Mushroom Bruschetta</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$15</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Toasted sourdough with wild mushrooms and parmesan.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Toasted sourdough with wild mushrooms and parmesan.</p>
             </div>
 
-
-            <!-- ================= MAIN COURSE (IMAGE 2) ================= -->
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px; display: none;">
+            <!-- ================= MAIN COURSE ================= -->
+            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Black Truffle Pasta</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$28</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Black Truffle Pasta</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$28</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Handmade pasta, black truffle, parmesan and creamy sauce.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Handmade pasta, black truffle, parmesan and creamy sauce.</p>
             </div>
 
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px; display: none;">
+            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Herb Grilled Salmon</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$32</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Herb Grilled Salmon</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$32</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
             </div>
 
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px; display: none;">
+            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Prime Ribeye</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$42</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Prime Ribeye</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$42</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Premium aged ribeye with roasted garlic and rosemary jus.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Premium aged ribeye with roasted garlic and rosemary jus.</p>
             </div>
 
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px; display: none;">
+            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Wild Mushroom Risotto</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$26</span>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Wild Mushroom Risotto</h3>
+                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$26</span>
                 </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
+                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
             </div>
 
-
-            <!-- ================= DESSERTS (IMAGE 3) ================= -->
-            <div class="menu-single-item" data-item="desserts" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px; display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500;">Chocolate Fondant</h3>
-                    <span style="color: var(--gold, #c9a66b); font-weight: 600; font-size: 1.1rem;">$14</span>
-                </div>
-                <p style="color: var(--text-light, #77716a); font-size: 0.9rem; line-height: 1.5;">Warm dark chocolate cake with vanilla ice cream.</p>
-            </div>
-
-            <div class="menu-single-item" data-item="desserts" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.3); padding-bottom: 20px; display: none;">
+            <!-- ================= DESSERTS ================= -->
+            <div class="menu-single-item" data-item="desserts" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
