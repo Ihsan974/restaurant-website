@@ -9,104 +9,242 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cloudflare.com">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- ഈ പേജിന് മാത്രമായുള്ള പ്രത്യേക സ്റ്റൈലുകൾ (CSS) -->
+    <style>
+        :root {
+            --dark: #11100e;
+            --cream: #f7f3ec;
+            --gold: #c9a66b;
+            --text: #292621;
+            --text-light: #77716a;
+        }
+        body {
+            background-color: var(--cream) !important;
+            color: var(--text) !important;
+            font-family: 'Inter', sans-serif;
+            padding: 60px 0;
+            margin: 0;
+        }
+        .menu-container {
+            width: min(calc(100% - 40px), 1200px);
+            margin: auto;
+        }
+        .back-link {
+            color: var(--gold);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+        .menu-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        .menu-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-weight: 500;
+            line-height: 1.1;
+            margin: 10px 0 0;
+            color: var(--dark);
+        }
+        .menu-header h1 span {
+            color: var(--gold);
+        }
+        .tab-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        .custom-tab-btn {
+            padding: 12px 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: transparent;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        .custom-tab-btn.active-tab {
+            background-color: var(--dark) !important;
+            color: #ffffff !important;
+            border-color: var(--dark) !important;
+        }
+        .menu-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px 60px;
+        }
+        .menu-single-item {
+            border-bottom: 1px dashed rgba(201, 166, 107, 0.4);
+            padding-bottom: 20px;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+        .item-row h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin: 0;
+            color: var(--dark);
+        }
+        .item-row .price {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .item-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
 </head>
-<body style="background: #f7f3ec; color: #292621; font-family: 'Inter', sans-serif; padding: 60px 0; margin: 0;">
+<body>
 
-    <div class="container" style="width: min(calc(100% - 40px), 1200px); margin: auto;">
+    <div class="menu-container">
         
         <!-- Back to Home Button -->
-        <a href="index.html" style="color: #c9a66b; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 40px; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px;">
+        <a href="index.html" class="back-link">
             <i class="fas fa-arrow-left"></i> BACK TO HOME
         </a>
 
         <!-- Menu Section Heading -->
-        <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;">
-            <span style="display: inline-block; color: #c9a66b; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; margin-bottom: 18px;">OUR MENU</span>
-            <h1 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 500; line-height: 1.1; margin: 10px 0 0; color: #11100e;">
-                Crafted With <span style="color: #c9a66b;">Passion.</span>
-            </h1>
-            <p style="color: #77716a; margin-top: 20px; font-size: 1rem; line-height: 1.7;">
+        <div class="menu-header">
+            <span style="display: inline-block; color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; margin-bottom: 18px;">OUR MENU</span>
+            <h1>Crafted With <span>Passion.</span></h1>
+            <p class="item-description" style="margin-top: 20px; font-size: 1rem;">
                 A carefully curated selection of dishes designed to delight every palate.
             </p>
         </div>
 
         <!-- Menu Categories Tabs Buttons -->
-        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px;">
-            <button class="menu-tab-btn" data-category="starters" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: none; background: #11100e; color: #ffffff; transition: 0.3s ease;">STARTERS</button>
-            <button class="menu-tab-btn" data-category="main-course" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: transparent; color: #292621; transition: 0.3s ease;">MAIN COURSE</button>
-            <button class="menu-tab-btn" data-category="desserts" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: transparent; color: #292621; transition: 0.3s ease;">DESSERTS</button>
-            <button class="menu-tab-btn" data-category="drinks" style="padding: 12px 25px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); background: transparent; color: #292621; transition: 0.3s ease;">DRINKS</button>
+        <div class="tab-wrapper">
+            <button class="custom-tab-btn active-tab" data-target="starters">STARTERS</button>
+            <button class="custom-tab-btn" data-target="main-course">MAIN COURSE</button>
+            <button class="custom-tab-btn" data-target="desserts">DESSERTS</button>
+            <button class="custom-tab-btn" data-target="drinks">DRINKS</button>
         </div>
 
         <!-- Menu Items Grid Container -->
-        <div id="menu-items-wrapper" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px 60px;">
+        <div class="menu-items-grid">
             
             <!-- ================= STARTERS ================= -->
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Burrata Garden Salad</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$18</span>
+            <div class="menu-single-item" data-cat="starters" style="display: block;">
+                <div class="item-row">
+                    <h3>Burrata Garden Salad</h3>
+                    <span class="price">$18</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
+                <p class="item-description">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
             </div>
 
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Truffle Arancini</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$16</span>
+            <div class="menu-single-item" data-cat="starters" style="display: block;">
+                <div class="item-row">
+                    <h3>Truffle Arancini</h3>
+                    <span class="price">$16</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Crispy risotto balls with black truffle and parmesan.</p>
+                <p class="item-description">Crispy risotto balls with black truffle and parmesan.</p>
             </div>
 
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Garlic Butter Prawns</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$30</span>
+            <div class="menu-single-item" data-cat="starters" style="display: block;">
+                <div class="item-row">
+                    <h3>Garlic Butter Prawns</h3>
+                    <span class="price">$30</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Succulent prawns with roasted garlic, herbs, and lemon.</p>
+                <p class="item-description">Succulent prawns with roasted garlic, herbs, and lemon.</p>
             </div>
 
-            <div class="menu-single-item" data-item="starters" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: block;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Wild Mushroom Bruschetta</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$15</span>
+            <div class="menu-single-item" data-cat="starters" style="display: block;">
+                <div class="item-row">
+                    <h3>Wild Mushroom Bruschetta</h3>
+                    <span class="price">$15</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Toasted sourdough with wild mushrooms and parmesan.</p>
+                <p class="item-description">Toasted sourdough with wild mushrooms and parmesan.</p>
             </div>
 
             <!-- ================= MAIN COURSE ================= -->
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Black Truffle Pasta</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$28</span>
+            <div class="menu-single-item" data-cat="main-course" style="display: none;">
+                <div class="item-row">
+                    <h3>Black Truffle Pasta</h3>
+                    <span class="price">$28</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Handmade pasta, black truffle, parmesan and creamy sauce.</p>
+                <p class="item-description">Handmade pasta, black truffle, parmesan and creamy sauce.</p>
             </div>
 
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Herb Grilled Salmon</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$32</span>
+            <div class="menu-single-item" data-cat="main-course" style="display: none;">
+                <div class="item-row">
+                    <h3>Herb Grilled Salmon</h3>
+                    <span class="price">$32</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
+                <p class="item-description">Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
             </div>
 
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Prime Ribeye</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$42</span>
+            <div class="menu-single-item" data-cat="main-course" style="display: none;">
+                <div class="item-row">
+                    <h3>Prime Ribeye</h3>
+                    <span class="price">$42</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Premium aged ribeye with roasted garlic and rosemary jus.</p>
+                <p class="item-description">Premium aged ribeye with roasted garlic and rosemary jus.</p>
             </div>
 
-            <div class="menu-single-item" data-item="main-course" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 0; color: #11100e;">Wild Mushroom Risotto</h3>
-                    <span style="color: #c9a66b; font-weight: 600; font-size: 1.1rem;">$26</span>
+            <div class="menu-single-item" data-cat="main-course" style="display: none;">
+                <div class="item-row">
+                    <h3>Wild Mushroom Risotto</h3>
+                    <span class="price">$26</span>
                 </div>
-                <p style="color: #77716a; font-size: 0.9rem; line-height: 1.5; margin: 0;">Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
+                <p class="item-description">Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
             </div>
 
             <!-- ================= DESSERTS ================= -->
-            <div class="menu-single-item" data-item="desserts" style="border-bottom: 1px dashed rgba(201, 166, 107, 0.4); padding-bottom: 20px; display: none;">
+            <div class="menu-single-item" data-cat="desserts" style="display: none;">
+                <div class="item-row">
+                    <h3>Chocolate Fondant</h3>
+                    <span class="price">$14</span>
+                </div>
+                <p class="item-description">Warm dark chocolate cake with vanilla ice cream.</p>
+            </div>
+
+            <div class="menu-single-item" data-cat="desserts" style="display: none;">
+                <div class="item-row">
+                    <h3>Classic Tiramisu</h3>
+                    <span class="price">$12</span>
+                </div>
+                <p class="item-description">Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
+            </div>
+
+            <div class="menu-single-item" data-cat="desserts" style="display: none;">
+                <div class="item-row">
+                    <h3>Vanilla Panna Cotta</h3>
+                    <span class="price">$11</span>
+                </div>
+                <p class="item-description">Silky vanilla panna cotta with seasonal berries.</p>
+            </div>
+
+            <div class="menu-single-item" data-cat="desserts" style="display: none;">
+                <div class="item-row">
+                    <h3>Lemon Tart</h3>
+                    <span class="price">$13</span>
+                </div>
+                <p class="item-description">Classic lemon curd tart with Italian meringue.</p>
+            </div>
+
+            <!-- ================= DRINKS ================= -->
+            <div class="menu-single-item" data-cat="drinks" style="display: none;">
+                <div class="item-row">
+                    <h3>La Vita Signature</h3>
