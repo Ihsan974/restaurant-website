@@ -4,34 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Vita | Our Premium Menu</title>
-    <!-- Google Fonts & Font Awesome -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Link -->
     <link rel="stylesheet" href="https://cloudflare.com">
     
-    <!-- ഈ പേജിന് മാത്രമായുള്ള പ്രത്യേക സ്റ്റൈലുകൾ (CSS) -->
     <style>
-        :root {
-            --dark: #11100e;
-            --cream: #f7f3ec;
-            --gold: #c9a66b;
-            --text: #292621;
-            --text-light: #77716a;
-        }
         body {
-            background-color: var(--cream) !important;
-            color: var(--text) !important;
-            font-family: 'Inter', sans-serif;
-            padding: 60px 0;
+            background-color: #f7f3ec !important;
+            color: #292621 !important;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding: 60px 20px;
             margin: 0;
         }
-        .menu-container {
-            width: min(calc(100% - 40px), 1200px);
-            margin: auto;
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .back-link {
-            color: var(--gold);
+        .back-btn {
+            color: #c9a66b;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -40,31 +30,30 @@
             font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 2px;
+            text-transform: uppercase;
         }
         .menu-header {
             text-align: center;
-            max-width: 700px;
-            margin: 0 auto 50px;
+            margin-bottom: 50px;
         }
         .menu-header h1 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: clamp(2.8rem, 5vw, 4.5rem);
             font-weight: 500;
-            line-height: 1.1;
             margin: 10px 0 0;
-            color: var(--dark);
+            color: #11100e;
         }
         .menu-header h1 span {
-            color: var(--gold);
+            color: #c9a66b;
         }
-        .tab-wrapper {
+        .tab-container {
             display: flex;
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
             margin-bottom: 50px;
         }
-        .custom-tab-btn {
+        .menu-btn {
             padding: 12px 25px;
             font-size: 0.8rem;
             font-weight: 600;
@@ -73,43 +62,46 @@
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.1);
             background: transparent;
-            color: var(--text);
-            transition: all 0.3s ease;
+            color: #292621;
+            transition: all 0.25s ease;
         }
-        .custom-tab-btn.active-tab {
-            background-color: var(--dark) !important;
+        /* Active ബട്ടണിന്റെ ഡിസൈൻ */
+        .menu-btn.active-tab {
+            background-color: #11100e !important;
             color: #ffffff !important;
-            border-color: var(--dark) !important;
+            border-color: #11100e !important;
         }
-        .menu-items-grid {
+        .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 40px 60px;
         }
-        .menu-single-item {
+        .dish-card {
             border-bottom: 1px dashed rgba(201, 166, 107, 0.4);
             padding-bottom: 20px;
+            /* ജാവാസ്ക്രിപ്റ്റ് കൈകാര്യം ചെയ്യാൻ താഴെയുള്ള ശൈലി സഹായിക്കും */
+            display: none; 
         }
-        .item-row {
+        .dish-top {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 8px;
         }
-        .item-row h3 {
-            font-family: 'Cormorant Garamond', serif;
+        .dish-top h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 1.6rem;
             font-weight: 500;
             margin: 0;
-            color: var(--dark);
+            color: #11100e;
         }
-        .item-row .price {
-            color: var(--gold);
+        .dish-top .price {
+            color: #c9a66b;
             font-weight: 600;
             font-size: 1.1rem;
         }
-        .item-description {
-            color: var(--text-light);
+        .dish-desc {
+            color: #77716a;
             font-size: 0.9rem;
             line-height: 1.5;
             margin: 0;
@@ -118,133 +110,156 @@
 </head>
 <body>
 
-    <div class="menu-container">
+    <div class="container">
         
-        <!-- Back to Home Button -->
-        <a href="index.html" class="back-link">
-            <i class="fas fa-arrow-left"></i> BACK TO HOME
+        <!-- Back to Home Link -->
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back To Home
         </a>
 
         <!-- Menu Section Heading -->
         <div class="menu-header">
-            <span style="display: inline-block; color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; margin-bottom: 18px;">OUR MENU</span>
+            <span style="color: #c9a66b; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">Our Menu</span>
             <h1>Crafted With <span>Passion.</span></h1>
-            <p class="item-description" style="margin-top: 20px; font-size: 1rem;">
+            <p class="dish-desc" style="margin-top: 20px; font-size: 1rem;">
                 A carefully curated selection of dishes designed to delight every palate.
             </p>
         </div>
 
         <!-- Menu Categories Tabs Buttons -->
-        <div class="tab-wrapper">
-            <button class="custom-tab-btn active-tab" data-target="starters">STARTERS</button>
-            <button class="custom-tab-btn" data-target="main-course">MAIN COURSE</button>
-            <button class="custom-tab-btn" data-target="desserts">DESSERTS</button>
-            <button class="custom-tab-btn" data-target="drinks">DRINKS</button>
+        <div class="tab-container">
+            <button class="menu-btn active-tab" data-target="starters">STARTERS</button>
+            <button class="menu-btn" data-target="main-course">MAIN COURSE</button>
+            <button class="menu-btn" data-target="desserts">DESSERTS</button>
+            <button class="menu-btn" data-target="drinks">DRINKS</button>
         </div>
 
         <!-- Menu Items Grid Container -->
-        <div class="menu-items-grid">
+        <div class="items-grid">
             
             <!-- ================= STARTERS ================= -->
-            <div class="menu-single-item" data-cat="starters" style="display: block;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="starters" style="display: block;">
+                <div class="dish-top">
                     <h3>Burrata Garden Salad</h3>
                     <span class="price">$18</span>
                 </div>
-                <p class="item-description">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
+                <p class="dish-desc">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="starters" style="display: block;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="starters" style="display: block;">
+                <div class="dish-top">
                     <h3>Truffle Arancini</h3>
                     <span class="price">$16</span>
                 </div>
-                <p class="item-description">Crispy risotto balls with black truffle and parmesan.</p>
+                <p class="dish-desc">Crispy risotto balls with black truffle and parmesan.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="starters" style="display: block;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="starters" style="display: block;">
+                <div class="dish-top">
                     <h3>Garlic Butter Prawns</h3>
                     <span class="price">$30</span>
                 </div>
-                <p class="item-description">Succulent prawns with roasted garlic, herbs, and lemon.</p>
+                <p class="dish-desc">Succulent prawns with roasted garlic, herbs, and lemon.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="starters" style="display: block;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="starters" style="display: block;">
+                <div class="dish-top">
                     <h3>Wild Mushroom Bruschetta</h3>
                     <span class="price">$15</span>
                 </div>
-                <p class="item-description">Toasted sourdough with wild mushrooms and parmesan.</p>
+                <p class="dish-desc">Toasted sourdough with wild mushrooms and parmesan.</p>
             </div>
 
             <!-- ================= MAIN COURSE ================= -->
-            <div class="menu-single-item" data-cat="main-course" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="main-course">
+                <div class="dish-top">
                     <h3>Black Truffle Pasta</h3>
                     <span class="price">$28</span>
                 </div>
-                <p class="item-description">Handmade pasta, black truffle, parmesan and creamy sauce.</p>
+                <p class="dish-desc">Handmade pasta, black truffle, parmesan and creamy sauce.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="main-course" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="main-course">
+                <div class="dish-top">
                     <h3>Herb Grilled Salmon</h3>
                     <span class="price">$32</span>
                 </div>
-                <p class="item-description">Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
+                <p class="dish-desc">Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="main-course" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="main-course">
+                <div class="dish-top">
                     <h3>Prime Ribeye</h3>
                     <span class="price">$42</span>
                 </div>
-                <p class="item-description">Premium aged ribeye with roasted garlic and rosemary jus.</p>
+                <p class="dish-desc">Premium aged ribeye with roasted garlic and rosemary jus.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="main-course" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="main-course">
+                <div class="dish-top">
                     <h3>Wild Mushroom Risotto</h3>
                     <span class="price">$26</span>
                 </div>
-                <p class="item-description">Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
+                <p class="dish-desc">Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
             </div>
 
             <!-- ================= DESSERTS ================= -->
-            <div class="menu-single-item" data-cat="desserts" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="desserts">
+                <div class="dish-top">
                     <h3>Chocolate Fondant</h3>
                     <span class="price">$14</span>
                 </div>
-                <p class="item-description">Warm dark chocolate cake with vanilla ice cream.</p>
+                <p class="dish-desc">Warm dark chocolate cake with vanilla ice cream.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="desserts" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="desserts">
+                <div class="dish-top">
                     <h3>Classic Tiramisu</h3>
                     <span class="price">$12</span>
                 </div>
-                <p class="item-description">Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
+                <p class="dish-desc">Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="desserts" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="desserts">
+                <div class="dish-top">
                     <h3>Vanilla Panna Cotta</h3>
                     <span class="price">$11</span>
                 </div>
-                <p class="item-description">Silky vanilla panna cotta with seasonal berries.</p>
+                <p class="dish-desc">Silky vanilla panna cotta with seasonal berries.</p>
             </div>
 
-            <div class="menu-single-item" data-cat="desserts" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="desserts">
+                <div class="dish-top">
                     <h3>Lemon Tart</h3>
                     <span class="price">$13</span>
                 </div>
-                <p class="item-description">Classic lemon curd tart with Italian meringue.</p>
+                <p class="dish-desc">Classic lemon curd tart with Italian meringue.</p>
             </div>
 
             <!-- ================= DRINKS ================= -->
-            <div class="menu-single-item" data-cat="drinks" style="display: none;">
-                <div class="item-row">
+            <div class="dish-card" data-cat="drinks">
+                <div class="dish-top">
                     <h3>La Vita Signature</h3>
+                    <span class="price">$10</span>
+                </div>
+                <p class="dish-desc">Passion fruit, citrus, mint and sparkling water.</p>
+            </div>
+
+            <div class="dish-card" data-cat="drinks">
+                <div class="dish-top">
+                    <h3>Sparkling Citrus</h3>
+                    <span class="price">$8</span>
+                </div>
+                <p class="dish-desc">Fresh orange, lemon and sparkling water.</p>
+            </div>
+
+            <div class="dish-card" data-cat="drinks">
+                <div class="dish-top">
+                    <h3>Espresso Martini</h3>
+                    <span class="price">$14</span>
+                </div>
+                <p class="dish-desc">Espresso with premium vodka and coffee liqueur.</p>
+            </div>
+
+            <div class="dish-card" data-cat="drinks">
+                <div class="dish-top">
