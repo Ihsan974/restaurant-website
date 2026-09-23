@@ -42,6 +42,12 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* JavaScript സഹായമില്ലാതെ വർക്ക് ചെയ്യാനുള്ള പ്രധാന ലോക്ക് സിസ്റ്റം */
+        .category-switcher {
+            display: none !important;
+        }
+
         .tab-container {
             display: flex;
             justify-content: center;
@@ -49,7 +55,9 @@
             flex-wrap: wrap;
             margin-bottom: 60px;
         }
-        .menu-btn {
+
+        /* ഡിസൈൻ ബട്ടണുകൾ */
+        .menu-btn-label {
             padding: 12px 28px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -60,61 +68,73 @@
             background: transparent;
             color: #706b63;
             transition: all 0.2s ease;
+            user-select: none;
+            display: inline-block;
         }
-        .menu-btn.active {
-            background-color: #11100e !important;
-            color: #ffffff !important;
-            border-color: #11100e !important;
-        }
-        .menu-btn:hover:not(.active) {
+        .menu-btn-label:hover {
             background-color: rgba(0,0,0,0.03);
             color: #11100e;
         }
 
-        /* ഒരു കാരണവശാലും ലേഔട്ട് മാറാത്ത ഫിക്സഡ് ഗ്രിഡ് */
-        .menu-section {
-            display: none; 
+        /* എല്ലാ കഷണങ്ങളും മായാത്ത 2-Column ഗ്രിഡ് ലേഔട്ട് */
+        .menu-grid-display {
+            display: none; /* തുടക്കത്തിൽ എല്ലാം ഒളിപ്പിച്ചു വെക്കുന്നു */
             grid-template-columns: repeat(2, 1fr) !important;
             column-gap: 60px;
             row-gap: 35px;
         }
 
-        /* ഈ ക്ലാസ് വരുമ്പോൾ മാത്രം ഗ്രിഡ് കൃത്യമായി ആക്റ്റീവ് ആകും */
-        .menu-section.active-grid {
+        /* ബട്ടൺ ആക്റ്റീവ് ആകുമ്പോൾ ബ്ലാക്ക് കളർ ആവാൻ */
+        #cat-starters:checked ~ .tab-container label[for="cat-starters"],
+        #cat-main:checked ~ .tab-container label[for="cat-main"],
+        #cat-desserts:checked ~ .tab-container label[for="cat-desserts"],
+        #cat-drinks:checked ~ .tab-container label[for="cat-drinks"] {
+            background-color: #11100e !important;
+            color: #ffffff !important;
+            border-color: #11100e !important;
+        }
+
+        /* ഏത് കാറ്റഗറി ആണോ സെലക്ട് ചെയ്തത് അത് കൃത്യമായി കാണിക്കാൻ */
+        #cat-starters:checked ~ .menu-box-wrapper #box-starters,
+        #cat-main:checked ~ .menu-box-wrapper #box-main,
+        #cat-desserts:checked ~ .menu-box-wrapper #box-desserts,
+        #cat-drinks:checked ~ .menu-box-wrapper #box-drinks {
             display: grid !important;
         }
 
-        .menu-item {
+        /* ഐറ്റങ്ങളുടെ സ്റ്റൈൽ */
+        .single-dish {
             border-bottom: 1px solid #e6dfd5;
             padding-bottom: 25px;
         }
-        .menu-item-header {
+        .dish-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 8px;
         }
-        .menu-item h3 {
+        .single-dish h3 {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 1.45rem;
             font-weight: 500;
             margin: 0;
             color: #11100e;
         }
-        .menu-item .price {
+        .single-dish .price {
             color: #c9a66b;
             font-weight: 600;
             font-size: 1.05rem;
         }
-        .menu-item p {
+        .single-dish p {
             color: #8c8579;
             font-size: 0.88rem;
             line-height: 1.5;
             margin: 0;
         }
 
+        /* മൊബൈൽ ഫോണുകൾക്ക് വേണ്ടി */
         @media (max-width: 768px) {
-            .menu-section.active-grid {
+            .menu-grid-display {
                 grid-template-columns: 1fr !important;
                 row-gap: 30px;
             }
@@ -124,46 +144,55 @@
 <body>
 
     <div class="container">
+        
+        <!-- മായാത്ത ഇൻപുട്ട് ലോക്കുകൾ -->
+        <input type="radio" id="cat-starters" name="menu-tab-group" class="category-switcher" checked>
+        <input type="radio" id="cat-main" name="menu-tab-group" class="category-switcher">
+        <input type="radio" id="cat-desserts" name="menu-tab-group" class="category-switcher">
+        <input type="radio" id="cat-drinks" name="menu-tab-group" class="category-switcher">
+
         <div class="menu-header">
             <p>Our Menu</p>
             <h1>Crafted With Passion.</h1>
             <p class="subtitle">A carefully curated selection of dishes designed to delight every palate.</p>
         </div>
 
+        <!-- പ്രധാന കൺട്രോൾ ബട്ടണുകൾ -->
         <div class="tab-container">
-            <button class="menu-btn active" data-target="starters">Starters</button>
-            <button class="menu-btn" data-target="main-course">Main Course</button>
-            <button class="menu-btn" data-target="desserts">Desserts</button>
-            <button class="menu-btn" data-target="drinks">Drinks</button>
+            <label for="cat-starters" class="menu-btn-label">Starters</label>
+            <label for="cat-main" class="menu-btn-label">Main Course</label>
+            <label for="cat-desserts" class="menu-btn-label">Desserts</label>
+            <label for="cat-drinks" class="menu-btn-label">Drinks</label>
         </div>
 
-        <div class="menu-container">
+        <!-- എല്ലാ വിഭവങ്ങളും അടങ്ങിയ ബോക്സ് -->
+        <div class="menu-box-wrapper">
             
             <!-- STARTERS -->
-            <div id="starters" class="menu-section active-grid">
-                <div class="menu-item">
-                    <div class="menu-item-header">
+            <div id="box-starters" class="menu-grid-display">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Burrata Garden Salad</h3>
                         <span class="price">$18</span>
                     </div>
                     <p>Creamy burrata, heirloom tomatoes, basil and balsamic glaze.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Truffle Arancini</h3>
                         <span class="price">$16</span>
                     </div>
                     <p>Crispy risotto balls with black truffle and parmesan.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Garlic Butter Prawns</h3>
                         <span class="price">$30</span>
                     </div>
                     <p>Succulent prawns with roasted garlic, herbs, and lemon.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Wild Mushroom Bruschetta</h3>
                         <span class="price">$15</span>
                     </div>
@@ -172,30 +201,30 @@
             </div>
 
             <!-- MAIN COURSE -->
-            <div id="main-course" class="menu-section">
-                <div class="menu-item">
-                    <div class="menu-item-header">
+            <div id="box-main" class="menu-grid-display">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Black Truffle Pasta</h3>
                         <span class="price">$28</span>
                     </div>
                     <p>Handmade pasta, black truffle, parmesan and creamy sauce.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Herb Grilled Salmon</h3>
                         <span class="price">$32</span>
                     </div>
                     <p>Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Prime Ribeye</h3>
                         <span class="price">$42</span>
                     </div>
                     <p>Premium aged ribeye with roasted garlic and rosemary jus.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Wild Mushroom Risotto</h3>
                         <span class="price">$26</span>
                     </div>
@@ -204,30 +233,30 @@
             </div>
 
             <!-- DESSERTS -->
-            <div id="desserts" class="menu-section">
-                <div class="menu-item">
-                    <div class="menu-item-header">
+            <div id="box-desserts" class="menu-grid-display">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Chocolate Fondant</h3>
                         <span class="price">$14</span>
                     </div>
                     <p>Warm dark chocolate cake with vanilla ice cream.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Classic Tiramisu</h3>
                         <span class="price">$12</span>
                     </div>
                     <p>Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Vanilla Panna Cotta</h3>
                         <span class="price">$11</span>
                     </div>
                     <p>Silky vanilla panna cotta with seasonal berries.</p>
                 </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
+                <div class="single-dish">
+                    <div class="dish-header">
                         <h3>Lemon Tart</h3>
                         <span class="price">$13</span>
                     </div>
@@ -236,39 +265,4 @@
             </div>
 
             <!-- DRINKS -->
-            <div id="drinks" class="menu-section">
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>La Vita Signature</h3>
-                        <span class="price">$10</span>
-                    </div>
-                    <p>Passion fruit, citrus, mint and sparkling water.</p>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>Sparkling Citrus</h3>
-                        <span class="price">$8</span>
-                    </div>
-                    <p>Fresh orange, lemon and sparkling water.</p>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>Espresso Martini</h3>
-                        <span class="price">$14</span>
-                    </div>
-                    <p>Espresso with premium vodka and coffee liqueur.</p>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>Mineral Water</h3>
-                        <span class="price">$5</span>
-                    </div>
-                    <p>Premium still or sparkling mineral water.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+            <div id="box-drinks" class="menu-grid-display">
