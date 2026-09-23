@@ -61,20 +61,21 @@
             color: #706b63;
             transition: all 0.2s ease;
         }
-        /* Active ബട്ടൺ സ്റ്റൈൽ */
+        
+        /* ആക്റ്റീവ് ബട്ടൺ ഫോഴ്സ് സ്റ്റൈൽ */
         .menu-btn.active {
             background-color: #11100e !important;
             color: #ffffff !important;
             border-color: #11100e !important;
         }
-        
-        /* പ്രധാന രണ്ട് കോള ലേഔട്ട് */
+
+        /* ഡിഫോൾട്ടായി എല്ലാ സെക്ഷനും ഒളിപ്പിക്കുക */
         .menu-section {
-            display: none; /* തുടക്കത്തിൽ ഒളിപ്പിച്ചു വെക്കുന്നു */
+            display: none !important; 
         }
         
-        /* ഈ ക്ലാസ് വരുമ്പോൾ മാത്രം സെക്ഷൻ കാണിക്കും */
-        .menu-section.show-grid {
+        /* കാണിക്കേണ്ട സെക്ഷൻ രണ്ട് കോളങ്ങളായി വരാൻ */
+        .menu-section.active-grid {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr);
             column-gap: 60px;
@@ -110,9 +111,8 @@
             margin: 0;
         }
 
-        /* ഫോണുകൾക്ക് വേണ്ടി ഒരു കോളമാക്കി മാറ്റുന്നു */
         @media (max-width: 768px) {
-            .menu-section.show-grid {
+            .menu-section.active-grid {
                 grid-template-columns: 1fr;
                 row-gap: 30px;
             }
@@ -128,18 +128,41 @@
             <p class="subtitle">A carefully curated selection of dishes designed to delight every palate.</p>
         </div>
 
-        <!-- ബട്ടണുകൾ -->
+        <!-- ബട്ടണുകൾ: Inline JavaScript വഴി നേരിട്ട് നിയന്ത്രിക്കുന്നു -->
         <div class="tab-container">
-            <button class="menu-btn active" onclick="openMenu(event, 'starters')">Starters</button>
-            <button class="menu-btn" onclick="openMenu(event, 'main-course')">Main Course</button>
-            <button class="menu-btn" onclick="openMenu(event, 'desserts')">Desserts</button>
-            <button class="menu-btn" onclick="openMenu(event, 'drinks')">Drinks</button>
+            <button class="menu-btn active" id="btn-starters" onclick="
+                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
+                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('starters').classList.add('active-grid');
+                this.classList.add('active');
+            ">Starters</button>
+
+            <button class="menu-btn" id="btn-main" onclick="
+                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
+                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('main-course').classList.add('active-grid');
+                this.classList.add('active');
+            ">Main Course</button>
+
+            <button class="menu-btn" id="btn-desserts" onclick="
+                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
+                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('desserts').classList.add('active-grid');
+                this.classList.add('active');
+            ">Desserts</button>
+
+            <button class="menu-btn" id="btn-drinks" onclick="
+                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
+                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('drinks').classList.add('active-grid');
+                this.classList.add('active');
+            ">Drinks</button>
         </div>
 
         <div class="menu-container">
             
             <!-- STARTERS -->
-            <div id="starters" class="menu-section show-grid">
+            <div id="starters" class="menu-section active-grid">
                 <div class="menu-item">
                     <div class="menu-item-header">
                         <h3>Burrata Garden Salad</h3>
@@ -236,38 +259,3 @@
 
             <!-- DRINKS -->
             <div id="drinks" class="menu-section">
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>La Vita Signature</h3>
-                        <span class="price">$10</span>
-                    </div>
-                    <p>Passion fruit, citrus, mint and sparkling water.</p>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>Sparkling Citrus</h3>
-                        <span class="price">$8</span>
-                    </div>
-                    <p>Fresh orange, lemon and sparkling water.</p>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>Espresso Martini</h3>
-                        <span class="price">$14</span>
-                    </div>
-                    <p>Espresso with premium vodka and coffee liqueur.</p>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>Mineral Water</h3>
-                        <span class="price">$5</span>
-                    </div>
-                    <p>Premium still or sparkling mineral water.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ലളിതമായ ഫങ്ക്ഷൻ -->
-    <script>
