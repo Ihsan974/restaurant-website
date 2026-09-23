@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Vita | Our Premium Menu</title>
-    <!-- Font Awesome Link -->
-    <link rel="stylesheet" href="https://cloudflare.com">
-    
     <style>
         body {
             background-color: #f7f3ec !important;
@@ -36,22 +33,32 @@
             text-align: center;
             margin-bottom: 50px;
         }
+        .menu-header p {
+            color: #c9a66b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin: 0;
+        }
         .menu-header h1 {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: clamp(2.8rem, 5vw, 4.5rem);
             font-weight: 500;
-            margin: 10px 0 0;
+            margin: 10px 0 20px;
             color: #11100e;
         }
-        .menu-header h1 span {
-            color: #c9a66b;
+        .menu-header .subtitle {
+            color: #706b63;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
         .tab-container {
             display: flex;
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         .menu-btn {
             padding: 12px 25px;
@@ -65,201 +72,183 @@
             color: #292621;
             transition: all 0.25s ease;
         }
-        /* Active ബട്ടണിന്റെ ഡിസൈൻ */
-        .menu-btn.active-tab {
-            background-color: #11100e !important;
-            color: #ffffff !important;
-            border-color: #11100e !important;
+        /* Active ബട്ടണിന്റെ ഡിസൈൻ (കറുത്ത ബാക്ക്ഗ്രൗണ്ട്) */
+        .menu-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+            border-color: #000000;
         }
-        .items-grid {
+        .menu-btn:hover:not(.active) {
+            background-color: rgba(0,0,0,0.05);
+        }
+        /* മെനു ഗ്രിഡ് ഡിസൈൻ */
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px 60px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
-        .dish-card {
-            border-bottom: 1px dashed rgba(201, 166, 107, 0.4);
-            padding-bottom: 20px;
-            /* ജാവാസ്ക്രിപ്റ്റ് കൈകാര്യം ചെയ്യാൻ താഴെയുള്ള ശൈലി സഹായിക്കും */
-            display: none; 
+        .menu-item {
+            display: none; /* തുടക്കത്തിൽ എല്ലാം ജാവാസ്ക്രിപ്റ്റ് വഴി നിയന്ത്രിക്കാൻ മറച്ചുവെക്കുന്നു */
+            animation: fadeIn 0.5s ease forwards;
         }
-        .dish-top {
+        .menu-item-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 8px;
         }
-        .dish-top h3 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.6rem;
+        .menu-item h3 {
+            font-size: 1.3rem;
             font-weight: 500;
             margin: 0;
             color: #11100e;
         }
-        .dish-top .price {
+        .menu-item .price {
             color: #c9a66b;
             font-weight: 600;
             font-size: 1.1rem;
         }
-        .dish-desc {
-            color: #77716a;
-            font-size: 0.9rem;
+        .menu-item p {
+            color: #706b63;
+            font-size: 0.95rem;
             line-height: 1.5;
             margin: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
-        <!-- Back to Home Link -->
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back To Home
-        </a>
+        <a href="#" class="back-btn">← Back To Home</a>
 
-        <!-- Menu Section Heading -->
         <div class="menu-header">
-            <span style="color: #c9a66b; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">Our Menu</span>
-            <h1>Crafted With <span>Passion.</span></h1>
-            <p class="dish-desc" style="margin-top: 20px; font-size: 1rem;">
-                A carefully curated selection of dishes designed to delight every palate.
-            </p>
+            <p>Our Menu</p>
+            <h1>Crafted With Passion.</h1>
+            <p class="subtitle">A carefully curated selection of dishes designed to delight every palate.</p>
         </div>
 
-        <!-- Menu Categories Tabs Buttons -->
+        <!-- മെനു മാറ്റാനുള്ള ബട്ടണുകൾ (data-category ശ്രദ്ധിക്കുക) -->
         <div class="tab-container">
-            <button class="menu-btn active-tab" data-target="starters">STARTERS</button>
-            <button class="menu-btn" data-target="main-course">MAIN COURSE</button>
-            <button class="menu-btn" data-target="desserts">DESSERTS</button>
-            <button class="menu-btn" data-target="drinks">DRINKS</button>
+            <button class="menu-btn active" data-category="starters">Starters</button>
+            <button class="menu-btn" data-category="main-course">Main Course</button>
+            <button class="menu-btn" data-category="desserts">Desserts</button>
+            <button class="menu-btn" data-category="drinks">Drinks</button>
         </div>
 
-        <!-- Menu Items Grid Container -->
-        <div class="items-grid">
+        <!-- മെനു ഐറ്റങ്ങൾ (data-item ആട്രിബ്യൂട്ട് ബട്ടണിലെ category-യുമായി മാച്ച് ചെയ്യണം) -->
+        <div class="menu-grid">
             
-            <!-- ================= STARTERS ================= -->
-            <div class="dish-card" data-cat="starters" style="display: block;">
-                <div class="dish-top">
+            <!-- STARTERS -->
+            <div class="menu-item" data-item="starters">
+                <div class="menu-item-header">
                     <h3>Burrata Garden Salad</h3>
                     <span class="price">$18</span>
                 </div>
-                <p class="dish-desc">Creamy burrata, heirloom tomatoes, basil, and balsamic glaze.</p>
+                <p>Creamy burrata, heirloom tomatoes, basil and balsamic glaze.</p>
             </div>
 
-            <div class="dish-card" data-cat="starters" style="display: block;">
-                <div class="dish-top">
+            <div class="menu-item" data-item="starters">
+                <div class="menu-item-header">
                     <h3>Truffle Arancini</h3>
                     <span class="price">$16</span>
                 </div>
-                <p class="dish-desc">Crispy risotto balls with black truffle and parmesan.</p>
+                <p>Crispy risotto balls with black truffle and parmesan.</p>
             </div>
 
-            <div class="dish-card" data-cat="starters" style="display: block;">
-                <div class="dish-top">
+            <div class="menu-item" data-item="starters">
+                <div class="menu-item-header">
                     <h3>Garlic Butter Prawns</h3>
                     <span class="price">$30</span>
                 </div>
-                <p class="dish-desc">Succulent prawns with roasted garlic, herbs, and lemon.</p>
+                <p>Succulent prawns with roasted garlic, herbs, and lemon.</p>
             </div>
 
-            <div class="dish-card" data-cat="starters" style="display: block;">
-                <div class="dish-top">
+            <div class="menu-item" data-item="starters">
+                <div class="menu-item-header">
                     <h3>Wild Mushroom Bruschetta</h3>
                     <span class="price">$15</span>
                 </div>
-                <p class="dish-desc">Toasted sourdough with wild mushrooms and parmesan.</p>
+                <p>Toasted sourdough with wild mushrooms and parmesan.</p>
             </div>
 
-            <!-- ================= MAIN COURSE ================= -->
-            <div class="dish-card" data-cat="main-course">
-                <div class="dish-top">
-                    <h3>Black Truffle Pasta</h3>
-                    <span class="price">$28</span>
+            <!-- MAIN COURSE -->
+            <div class="menu-item" data-item="main-course">
+                <div class="menu-item-header">
+                    <h3>Ribeye Steak</h3>
+                    <span class="price">$45</span>
                 </div>
-                <p class="dish-desc">Handmade pasta, black truffle, parmesan and creamy sauce.</p>
+                <p>Premium grilled ribeye served with garlic mash and asparagus.</p>
             </div>
 
-            <div class="dish-card" data-cat="main-course">
-                <div class="dish-top">
-                    <h3>Herb Grilled Salmon</h3>
-                    <span class="price">$32</span>
+            <div class="menu-item" data-item="main-course">
+                <div class="menu-item-header">
+                    <h3>Pan-Seared Salmon</h3>
+                    <span class="price">$38</span>
                 </div>
-                <p class="dish-desc">Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
+                <p>Fresh salmon fillet with lemon herb butter and quinoa.</p>
             </div>
 
-            <div class="dish-card" data-cat="main-course">
-                <div class="dish-top">
-                    <h3>Prime Ribeye</h3>
-                    <span class="price">$42</span>
-                </div>
-                <p class="dish-desc">Premium aged ribeye with roasted garlic and rosemary jus.</p>
-            </div>
-
-            <div class="dish-card" data-cat="main-course">
-                <div class="dish-top">
-                    <h3>Wild Mushroom Risotto</h3>
-                    <span class="price">$26</span>
-                </div>
-                <p class="dish-desc">Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
-            </div>
-
-            <!-- ================= DESSERTS ================= -->
-            <div class="dish-card" data-cat="desserts">
-                <div class="dish-top">
-                    <h3>Chocolate Fondant</h3>
-                    <span class="price">$14</span>
-                </div>
-                <p class="dish-desc">Warm dark chocolate cake with vanilla ice cream.</p>
-            </div>
-
-            <div class="dish-card" data-cat="desserts">
-                <div class="dish-top">
+            <!-- DESSERTS -->
+            <div class="menu-item" data-item="desserts">
+                <div class="menu-item-header">
                     <h3>Classic Tiramisu</h3>
                     <span class="price">$12</span>
                 </div>
-                <p class="dish-desc">Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
+                <p>Layers of espresso-soaked ladyfingers and mascarpone cream.</p>
             </div>
 
-            <div class="dish-card" data-cat="desserts">
-                <div class="dish-top">
-                    <h3>Vanilla Panna Cotta</h3>
-                    <span class="price">$11</span>
-                </div>
-                <p class="dish-desc">Silky vanilla panna cotta with seasonal berries.</p>
-            </div>
-
-            <div class="dish-card" data-cat="desserts">
-                <div class="dish-top">
-                    <h3>Lemon Tart</h3>
-                    <span class="price">$13</span>
-                </div>
-                <p class="dish-desc">Classic lemon curd tart with Italian meringue.</p>
-            </div>
-
-            <!-- ================= DRINKS ================= -->
-            <div class="dish-card" data-cat="drinks">
-                <div class="dish-top">
-                    <h3>La Vita Signature</h3>
-                    <span class="price">$10</span>
-                </div>
-                <p class="dish-desc">Passion fruit, citrus, mint and sparkling water.</p>
-            </div>
-
-            <div class="dish-card" data-cat="drinks">
-                <div class="dish-top">
-                    <h3>Sparkling Citrus</h3>
+            <!-- DRINKS -->
+            <div class="menu-item" data-item="drinks">
+                <div class="menu-item-header">
+                    <h3>Signature Mocktail</h3>
                     <span class="price">$8</span>
                 </div>
-                <p class="dish-desc">Fresh orange, lemon and sparkling water.</p>
+                <p>A refreshing blend of seasonal fruits, mint, and soda.</p>
             </div>
 
-            <div class="dish-card" data-cat="drinks">
-                <div class="dish-top">
-                    <h3>Espresso Martini</h3>
-                    <span class="price">$14</span>
-                </div>
-                <p class="dish-desc">Espresso with premium vodka and coffee liqueur.</p>
-            </div>
+        </div>
+    </div>
 
-            <div class="dish-card" data-cat="drinks">
-                <div class="dish-top">
+    <!-- ബട്ടണുകൾ വർക്ക് ചെയ്യിക്കാനുള്ള JavaScript കോഡ് -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.menu-btn');
+            const items = document.querySelectorAll('.menu-item');
+
+            function filterMenu(category) {
+                items.forEach(item => {
+                    // ഐറ്റത്തിന്റെ കാറ്റഗറി ബട്ടണുമായി മാച്ച് ചെയ്താൽ മാത്രം കാണിക്കുക
+                    if (item.getAttribute('data-item') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            // പേജ് ലോഡ് ചെയ്യുമ്പോൾ ആദ്യം 'starters' മാത്രം കാണിക്കുക
+            filterMenu('starters');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // നിലവിലെ ആക്റ്റീവ് ബട്ടണിൽ നിന്നും active ക്ലാസ് മാറ്റുക
+                    document.querySelector('.menu-btn.active').classList.remove('active');
+                    // ഇപ്പോൾ ക്ലിക്ക് ചെയ്ത ബട്ടണിലേക്ക് active ക്ലാസ് നൽകുക
+                    button.classList.add('active');
+
+                    // ക്ലിക്ക് ചെയ്ത ബട്ടണിന്റെ കാറ്റഗറി എടുക്കുക
+                    const selectedCategory = button.getAttribute('data-category');
+                    
+                    // ഫിൽറ്റർ ഫങ്ക്ഷൻ പ്രവർത്തിപ്പിക്കുക
+                    filterMenu(selectedCategory);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
