@@ -42,6 +42,12 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* 100% വർക്കിംഗിനായി ജാവാസ്ക്രിപ്റ്റിന് പകരം ഒളിപ്പിച്ചു വെച്ച റേഡിയോ ബട്ടണുകൾ */
+        .menu-switch {
+            display: none !important;
+        }
+
         .tab-container {
             display: flex;
             justify-content: center;
@@ -49,7 +55,9 @@
             flex-wrap: wrap;
             margin-bottom: 60px;
         }
-        .menu-btn {
+
+        /* ബട്ടണുകൾക്ക് പകരമുള്ള ലേബൽ ഡിസൈൻ */
+        .menu-label {
             padding: 12px 28px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -60,28 +68,40 @@
             background: transparent;
             color: #706b63;
             transition: all 0.2s ease;
+            user-select: none;
+            display: inline-block;
         }
-        
-        /* ആക്റ്റീവ് ബട്ടൺ ഫോഴ്സ് സ്റ്റൈൽ */
-        .menu-btn.active {
-            background-color: #11100e !important;
-            color: #ffffff !important;
-            border-color: #11100e !important;
+        .menu-label:hover {
+            background-color: rgba(0,0,0,0.03);
+            color: #11100e;
         }
 
-        /* ഡിഫോൾട്ടായി എല്ലാ സെക്ഷനും ഒളിപ്പിക്കുക */
-        .menu-section {
-            display: none !important; 
-        }
-        
-        /* കാണിക്കേണ്ട സെക്ഷൻ രണ്ട് കോളങ്ങളായി വരാൻ */
-        .menu-section.active-grid {
-            display: grid !important;
+        /* പ്രധാന മെനു ഗ്രിഡ് ലേഔട്ട് */
+        .menu-grid-section {
+            display: none; /* തുടക്കത്തിൽ എല്ലാം ഒളിപ്പിക്കുന്നു */
             grid-template-columns: repeat(2, 1fr);
             column-gap: 60px;
             row-gap: 35px;
         }
 
+        /* CSS മാജിക്: റേഡിയോ ബട്ടൺ സെലക്ട് ചെയ്യുമ്പോൾ അതത് മെനുവും ആക്റ്റീവ് ബട്ടൺ സ്റ്റൈലും ഓണാകുന്നു */
+        #select-starters:checked ~ .tab-container label[for="select-starters"],
+        #select-main:checked ~ .tab-container label[for="select-main"],
+        #select-desserts:checked ~ .tab-container label[for="select-desserts"],
+        #select-drinks:checked ~ .tab-container label[for="select-drinks"] {
+            background-color: #11100e !important;
+            color: #ffffff !important;
+            border-color: #11100e !important;
+        }
+
+        #select-starters:checked ~ .menu-container #starters-content,
+        #select-main:checked ~ .menu-container #main-content,
+        #select-desserts:checked ~ .menu-container #desserts-content,
+        #select-drinks:checked ~ .menu-container #drinks-content {
+            display: grid !important; /* 2-column ഗ്രിഡ് ആയി മാത്രം ഓണാക്കുന്നു */
+        }
+
+        /* ഓരോ വിഭവത്തിന്റെയും ഭംഗിയുള്ള ഡിസൈൻ */
         .menu-item {
             border-bottom: 1px solid #e6dfd5;
             padding-bottom: 25px;
@@ -111,8 +131,12 @@
             margin: 0;
         }
 
+        /* മൊബൈൽ ഫോണുകളിൽ ഒരു കോളം മാത്രമായി ചുരുങ്ങാൻ */
         @media (max-width: 768px) {
-            .menu-section.active-grid {
+            #select-starters:checked ~ .menu-container #starters-content,
+            #select-main:checked ~ .menu-container #main-content,
+            #select-desserts:checked ~ .menu-container #desserts-content,
+            #select-drinks:checked ~ .menu-container #drinks-content {
                 grid-template-columns: 1fr;
                 row-gap: 30px;
             }
@@ -122,47 +146,32 @@
 <body>
 
     <div class="container">
+        
+        <!-- മെനു കൺട്രോൾ ചെയ്യാനുള്ള ഹിഡൻ ഇൻപുട്ടുകൾ -->
+        <input type="radio" id="select-starters" name="menu-category" class="menu-switch" checked>
+        <input type="radio" id="select-main" name="menu-category" class="menu-switch">
+        <input type="radio" id="select-desserts" name="menu-category" class="menu-switch">
+        <input type="radio" id="select-drinks" name="menu-category" class="menu-switch">
+
         <div class="menu-header">
             <p>Our Menu</p>
             <h1>Crafted With Passion.</h1>
             <p class="subtitle">A carefully curated selection of dishes designed to delight every palate.</p>
         </div>
 
-        <!-- ബട്ടണുകൾ: Inline JavaScript വഴി നേരിട്ട് നിയന്ത്രിക്കുന്നു -->
+        <!-- മെനു മാറ്റാനുള്ള പ്രധാന ബട്ടണുകൾ -->
         <div class="tab-container">
-            <button class="menu-btn active" id="btn-starters" onclick="
-                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
-                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('starters').classList.add('active-grid');
-                this.classList.add('active');
-            ">Starters</button>
-
-            <button class="menu-btn" id="btn-main" onclick="
-                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
-                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('main-course').classList.add('active-grid');
-                this.classList.add('active');
-            ">Main Course</button>
-
-            <button class="menu-btn" id="btn-desserts" onclick="
-                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
-                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('desserts').classList.add('active-grid');
-                this.classList.add('active');
-            ">Desserts</button>
-
-            <button class="menu-btn" id="btn-drinks" onclick="
-                document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active-grid'));
-                document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('drinks').classList.add('active-grid');
-                this.classList.add('active');
-            ">Drinks</button>
+            <label for="select-starters" class="menu-label">Starters</label>
+            <label for="select-main" class="menu-label">Main Course</label>
+            <label for="select-desserts" class="menu-label">Desserts</label>
+            <label for="select-drinks" class="menu-label">Drinks</label>
         </div>
 
+        <!-- മെനു ലിസ്റ്റുകൾ സൂക്ഷിക്കുന്ന കണ്ടെയ്നർ -->
         <div class="menu-container">
             
             <!-- STARTERS -->
-            <div id="starters" class="menu-section active-grid">
+            <div id="starters-content" class="menu-grid-section">
                 <div class="menu-item">
                     <div class="menu-item-header">
                         <h3>Burrata Garden Salad</h3>
@@ -194,7 +203,7 @@
             </div>
 
             <!-- MAIN COURSE -->
-            <div id="main-course" class="menu-section">
+            <div id="main-content" class="menu-grid-section">
                 <div class="menu-item">
                     <div class="menu-item-header">
                         <h3>Black Truffle Pasta</h3>
@@ -226,7 +235,7 @@
             </div>
 
             <!-- DESSERTS -->
-            <div id="desserts" class="menu-section">
+            <div id="desserts-content" class="menu-grid-section">
                 <div class="menu-item">
                     <div class="menu-item-header">
                         <h3>Chocolate Fondant</h3>
@@ -249,13 +258,3 @@
                     <p>Silky vanilla panna cotta with seasonal berries.</p>
                 </div>
                 <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3>Lemon Tart</h3>
-                        <span class="price">$13</span>
-                    </div>
-                    <p>Classic lemon curd tart with Italian meringue.</p>
-                </div>
-            </div>
-
-            <!-- DRINKS -->
-            <div id="drinks" class="menu-section">
