@@ -61,26 +61,26 @@
             color: #706b63;
             transition: all 0.2s ease;
         }
+        /* Active ബട്ടൺ സ്റ്റൈൽ */
         .menu-btn.active {
-            background-color: #11100e;
-            color: #ffffff;
-            border-color: #11100e;
+            background-color: #11100e !important;
+            color: #ffffff !important;
+            border-color: #11100e !important;
         }
-        .menu-btn:hover:not(.active) {
-            background-color: rgba(0,0,0,0.03);
-            color: #11100e;
-        }
-
-        /* മെനു ഗ്രിഡ് ലേഔട്ട് - സെക്ഷനുകൾക്ക് ഡിസ്പ്ലേ ഫ്ലെക്സിബിലിറ്റി നൽകുന്നു */
+        
+        /* പ്രധാന രണ്ട് കോള ലേഔട്ട് */
         .menu-section {
-            display: none; /* തുടക്കത്തിൽ മറയ്ക്കുന്നു */
+            display: none; /* തുടക്കത്തിൽ ഒളിപ്പിച്ചു വെക്കുന്നു */
+        }
+        
+        /* ഈ ക്ലാസ് വരുമ്പോൾ മാത്രം സെക്ഷൻ കാണിക്കും */
+        .menu-section.show-grid {
+            display: grid !important;
             grid-template-columns: repeat(2, 1fr);
             column-gap: 60px;
             row-gap: 35px;
-            animation: fadeIn 0.4s ease forwards;
         }
 
-        /* ഓരോ വിഭവത്തിന്റെയും സ്റ്റൈൽ */
         .menu-item {
             border-bottom: 1px solid #e6dfd5;
             padding-bottom: 25px;
@@ -110,16 +110,12 @@
             margin: 0;
         }
 
-        /* മൊബൈൽ റെസ്പോൺസീവ് ഡിസൈൻ */
+        /* ഫോണുകൾക്ക് വേണ്ടി ഒരു കോളമാക്കി മാറ്റുന്നു */
         @media (max-width: 768px) {
-            .menu-section {
+            .menu-section.show-grid {
                 grid-template-columns: 1fr;
                 row-gap: 30px;
             }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -134,17 +130,16 @@
 
         <!-- ബട്ടണുകൾ -->
         <div class="tab-container">
-            <button class="menu-btn active" data-target="starters">Starters</button>
-            <button class="menu-btn" data-target="main-course">Main Course</button>
-            <button class="menu-btn" data-target="desserts">Desserts</button>
-            <button class="menu-btn" data-target="drinks">Drinks</button>
+            <button class="menu-btn active" onclick="openMenu(event, 'starters')">Starters</button>
+            <button class="menu-btn" onclick="openMenu(event, 'main-course')">Main Course</button>
+            <button class="menu-btn" onclick="openMenu(event, 'desserts')">Desserts</button>
+            <button class="menu-btn" onclick="openMenu(event, 'drinks')">Drinks</button>
         </div>
 
-        <!-- മെനു കണ്ടന്റുകൾ -->
         <div class="menu-container">
             
-            <!-- STARTERS SECTION -->
-            <div id="starters" class="menu-section">
+            <!-- STARTERS -->
+            <div id="starters" class="menu-section show-grid">
                 <div class="menu-item">
                     <div class="menu-item-header">
                         <h3>Burrata Garden Salad</h3>
@@ -175,7 +170,7 @@
                 </div>
             </div>
 
-            <!-- MAIN COURSE SECTION -->
+            <!-- MAIN COURSE -->
             <div id="main-course" class="menu-section">
                 <div class="menu-item">
                     <div class="menu-item-header">
@@ -207,7 +202,7 @@
                 </div>
             </div>
 
-            <!-- DESSERTS SECTION -->
+            <!-- DESSERTS -->
             <div id="desserts" class="menu-section">
                 <div class="menu-item">
                     <div class="menu-item-header">
@@ -239,7 +234,7 @@
                 </div>
             </div>
 
-            <!-- DRINKS SECTION -->
+            <!-- DRINKS -->
             <div id="drinks" class="menu-section">
                 <div class="menu-item">
                     <div class="menu-item-header">
@@ -267,3 +262,12 @@
                         <h3>Mineral Water</h3>
                         <span class="price">$5</span>
                     </div>
+                    <p>Premium still or sparkling mineral water.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ലളിതമായ ഫങ്ക്ഷൻ -->
+    <script>
