@@ -14,20 +14,8 @@
         }
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-        }
-        .back-btn {
-            color: #c9a66b;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 40px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
         }
         .menu-header {
             text-align: center;
@@ -37,59 +25,66 @@
             color: #c9a66b;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
             margin: 0;
         }
         .menu-header h1 {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
             font-weight: 500;
-            margin: 10px 0 20px;
+            margin: 15px 0 20px;
             color: #11100e;
         }
         .menu-header .subtitle {
             color: #706b63;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             max-width: 600px;
             margin: 0 auto;
+            text-transform: none;
+            letter-spacing: 0;
         }
         .tab-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 60px;
         }
         .menu-btn {
-            padding: 12px 25px;
-            font-size: 0.8rem;
+            padding: 12px 28px;
+            font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.1);
             background: transparent;
-            color: #292621;
-            transition: all 0.25s ease;
+            color: #706b63;
+            transition: all 0.2s ease;
         }
-        /* Active ബട്ടണിന്റെ ഡിസൈൻ (കറുത്ത ബാക്ക്ഗ്രൗണ്ട്) */
+        /* Active ബട്ടൺ സ്റ്റൈൽ */
         .menu-btn.active {
-            background-color: #000000;
+            background-color: #11100e;
             color: #ffffff;
-            border-color: #000000;
+            border-color: #11100e;
         }
         .menu-btn:hover:not(.active) {
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(0,0,0,0.03);
+            color: #11100e;
         }
-        /* മെനു ഗ്രിഡ് ഡിസൈൻ */
+        /* രണ്ട് കോളങ്ങളുള്ള മെനു ഗ്രിഡ് */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 60px;
+            row-gap: 35px;
         }
         .menu-item {
-            display: none; /* തുടക്കത്തിൽ എല്ലാം ജാവാസ്ക്രിപ്റ്റ് വഴി നിയന്ത്രിക്കാൻ മറച്ചുവെക്കുന്നു */
-            animation: fadeIn 0.5s ease forwards;
+            display: none; /* JS വഴി നിയന്ത്രിക്കാൻ തുടക്കത്തിൽ ഒളിപ്പിച്ചു വെക്കുന്നു */
+            border-bottom: 1px solid #e6dfd5;
+            padding-bottom: 25px;
+            animation: fadeIn 0.4s ease forwards;
         }
         .menu-item-header {
             display: flex;
@@ -98,7 +93,8 @@
             margin-bottom: 8px;
         }
         .menu-item h3 {
-            font-size: 1.3rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.45rem;
             font-weight: 500;
             margin: 0;
             color: #11100e;
@@ -106,16 +102,23 @@
         .menu-item .price {
             color: #c9a66b;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
         .menu-item p {
-            color: #706b63;
-            font-size: 0.95rem;
+            color: #8c8579;
+            font-size: 0.88rem;
             line-height: 1.5;
             margin: 0;
         }
+        /* മൊബൈൽ ഫോണുകളിൽ ഒരു കോളമായി മാറാൻ */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+                row-gap: 30px;
+            }
+        }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -123,15 +126,13 @@
 <body>
 
     <div class="container">
-        <a href="#" class="back-btn">← Back To Home</a>
-
         <div class="menu-header">
             <p>Our Menu</p>
             <h1>Crafted With Passion.</h1>
             <p class="subtitle">A carefully curated selection of dishes designed to delight every palate.</p>
         </div>
 
-        <!-- മെനു മാറ്റാനുള്ള ബട്ടണുകൾ (data-category ശ്രദ്ധിക്കുക) -->
+        <!-- ഫിൽട്ടർ ബട്ടണുകൾ -->
         <div class="tab-container">
             <button class="menu-btn active" data-category="starters">Starters</button>
             <button class="menu-btn" data-category="main-course">Main Course</button>
@@ -139,7 +140,7 @@
             <button class="menu-btn" data-category="drinks">Drinks</button>
         </div>
 
-        <!-- മെനു ഐറ്റങ്ങൾ (data-item ആട്രിബ്യൂട്ട് ബട്ടണിലെ category-യുമായി മാച്ച് ചെയ്യണം) -->
+        <!-- മെനു ലിസ്റ്റ് (ഗ്രിഡ് ലേഔട്ട്) -->
         <div class="menu-grid">
             
             <!-- STARTERS -->
@@ -178,77 +179,106 @@
             <!-- MAIN COURSE -->
             <div class="menu-item" data-item="main-course">
                 <div class="menu-item-header">
-                    <h3>Ribeye Steak</h3>
-                    <span class="price">$45</span>
+                    <h3>Black Truffle Pasta</h3>
+                    <span class="price">$28</span>
                 </div>
-                <p>Premium grilled ribeye served with garlic mash and asparagus.</p>
+                <p>Handmade pasta, black truffle, parmesan and creamy sauce.</p>
             </div>
 
             <div class="menu-item" data-item="main-course">
                 <div class="menu-item-header">
-                    <h3>Pan-Seared Salmon</h3>
-                    <span class="price">$38</span>
+                    <h3>Herb Grilled Salmon</h3>
+                    <span class="price">$32</span>
                 </div>
-                <p>Fresh salmon fillet with lemon herb butter and quinoa.</p>
+                <p>Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
+            </div>
+
+            <div class="menu-item" data-item="main-course">
+                <div class="menu-item-header">
+                    <h3>Prime Ribeye</h3>
+                    <span class="price">$42</span>
+                </div>
+                <p>Premium aged ribeye with roasted garlic and rosemary jus.</p>
+            </div>
+
+            <div class="menu-item" data-item="main-course">
+                <div class="menu-item-header">
+                    <h3>Wild Mushroom Risotto</h3>
+                    <span class="price">$26</span>
+                </div>
+                <p>Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
             </div>
 
             <!-- DESSERTS -->
             <div class="menu-item" data-item="desserts">
                 <div class="menu-item-header">
+                    <h3>Chocolate Fondant</h3>
+                    <span class="price">$14</span>
+                </div>
+                <p>Warm dark chocolate cake with vanilla ice cream.</p>
+            </div>
+
+            <div class="menu-item" data-item="desserts">
+                <div class="menu-item-header">
                     <h3>Classic Tiramisu</h3>
                     <span class="price">$12</span>
                 </div>
-                <p>Layers of espresso-soaked ladyfingers and mascarpone cream.</p>
+                <p>Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
+            </div>
+
+            <div class="menu-item" data-item="desserts">
+                <div class="menu-item-header">
+                    <h3>Vanilla Panna Cotta</h3>
+                    <span class="price">$11</span>
+                </div>
+                <p>Silky vanilla panna cotta with seasonal berries.</p>
+            </div>
+
+            <div class="menu-item" data-item="desserts">
+                <div class="menu-item-header">
+                    <h3>Lemon Tart</h3>
+                    <span class="price">$13</span>
+                </div>
+                <p>Classic lemon curd tart with Italian meringue.</p>
             </div>
 
             <!-- DRINKS -->
             <div class="menu-item" data-item="drinks">
                 <div class="menu-item-header">
-                    <h3>Signature Mocktail</h3>
+                    <h3>La Vita Signature</h3>
+                    <span class="price">$10</span>
+                </div>
+                <p>Passion fruit, citrus, mint and sparkling water.</p>
+            </div>
+
+            <div class="menu-item" data-item="drinks">
+                <div class="menu-item-header">
+                    <h3>Sparkling Citrus</h3>
                     <span class="price">$8</span>
                 </div>
-                <p>A refreshing blend of seasonal fruits, mint, and soda.</p>
+                <p>Fresh orange, lemon and sparkling water.</p>
+            </div>
+
+            <div class="menu-item" data-item="drinks">
+                <div class="menu-item-header">
+                    <h3>Espresso Martini</h3>
+                    <span class="price">$14</span>
+                </div>
+                <p>Espresso with premium vodka and coffee liqueur.</p>
+            </div>
+
+            <div class="menu-item" data-item="drinks">
+                <div class="menu-item-header">
+                    <h3>Mineral Water</h3>
+                    <span class="price">$5</span>
+                </div>
+                <p>Premium still or sparkling mineral water.</p>
             </div>
 
         </div>
     </div>
 
-    <!-- ബട്ടണുകൾ വർക്ക് ചെയ്യിക്കാനുള്ള JavaScript കോഡ് -->
+    <!-- JavaScript ഫങ്ക്ഷൻ -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const buttons = document.querySelectorAll('.menu-btn');
-            const items = document.querySelectorAll('.menu-item');
-
-            function filterMenu(category) {
-                items.forEach(item => {
-                    // ഐറ്റത്തിന്റെ കാറ്റഗറി ബട്ടണുമായി മാച്ച് ചെയ്താൽ മാത്രം കാണിക്കുക
-                    if (item.getAttribute('data-item') === category) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            }
-
-            // പേജ് ലോഡ് ചെയ്യുമ്പോൾ ആദ്യം 'starters' മാത്രം കാണിക്കുക
-            filterMenu('starters');
-
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // നിലവിലെ ആക്റ്റീവ് ബട്ടണിൽ നിന്നും active ക്ലാസ് മാറ്റുക
-                    document.querySelector('.menu-btn.active').classList.remove('active');
-                    // ഇപ്പോൾ ക്ലിക്ക് ചെയ്ത ബട്ടണിലേക്ക് active ക്ലാസ് നൽകുക
-                    button.classList.add('active');
-
-                    // ക്ലിക്ക് ചെയ്ത ബട്ടണിന്റെ കാറ്റഗറി എടുക്കുക
-                    const selectedCategory = button.getAttribute('data-category');
-                    
-                    // ഫിൽറ്റർ ഫങ്ക്ഷൻ പ്രവർത്തിപ്പിക്കുക
-                    filterMenu(selectedCategory);
-                });
-            });
-        });
-    </script>
-
-</body>
-</html>
