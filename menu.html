@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Vita | Our Premium Menu</title>
+    
+    <!-- Google Fonts ലിങ്കുകൾ (നിങ്ങളുടെ ഡിസൈനിലെ അതേ ഫോണ്ടുകൾ വരാൻ) -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
         body {
             background-color: #f7f3ec !important;
@@ -42,12 +48,6 @@
             max-width: 600px;
             margin: 0 auto;
         }
-
-        /* JavaScript സഹായമില്ലാതെ വർക്ക് ചെയ്യാനുള്ള പ്രധാന ലോക്ക് സിസ്റ്റം */
-        .category-switcher {
-            display: none !important;
-        }
-
         .tab-container {
             display: flex;
             justify-content: center;
@@ -55,9 +55,7 @@
             flex-wrap: wrap;
             margin-bottom: 60px;
         }
-
-        /* ഡിസൈൻ ബട്ടണുകൾ */
-        .menu-btn-label {
+        .menu-btn {
             padding: 12px 28px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -68,201 +66,158 @@
             background: transparent;
             color: #706b63;
             transition: all 0.2s ease;
-            user-select: none;
-            display: inline-block;
         }
-        .menu-btn-label:hover {
-            background-color: rgba(0,0,0,0.03);
-            color: #11100e;
-        }
-
-        /* എല്ലാ കഷണങ്ങളും മായാത്ത 2-Column ഗ്രിഡ് ലേഔട്ട് */
-        .menu-grid-display {
-            display: none; /* തുടക്കത്തിൽ എല്ലാം ഒളിപ്പിച്ചു വെക്കുന്നു */
-            grid-template-columns: repeat(2, 1fr) !important;
-            column-gap: 60px;
-            row-gap: 35px;
-        }
-
-        /* ബട്ടൺ ആക്റ്റീവ് ആകുമ്പോൾ ബ്ലാക്ക് കളർ ആവാൻ */
-        #cat-starters:checked ~ .tab-container label[for="cat-starters"],
-        #cat-main:checked ~ .tab-container label[for="cat-main"],
-        #cat-desserts:checked ~ .tab-container label[for="cat-desserts"],
-        #cat-drinks:checked ~ .tab-container label[for="cat-drinks"] {
+        /* Active ബട്ടൺ സ്റ്റൈൽ */
+        .menu-btn.active {
             background-color: #11100e !important;
             color: #ffffff !important;
             border-color: #11100e !important;
         }
-
-        /* ഏത് കാറ്റഗറി ആണോ സെലക്ട് ചെയ്തത് അത് കൃത്യമായി കാണിക്കാൻ */
-        #cat-starters:checked ~ .menu-box-wrapper #box-starters,
-        #cat-main:checked ~ .menu-box-wrapper #box-main,
-        #cat-desserts:checked ~ .menu-box-wrapper #box-desserts,
-        #cat-drinks:checked ~ .menu-box-wrapper #box-drinks {
-            display: grid !important;
+        .menu-btn:hover:not(.active) {
+            background-color: rgba(0,0,0,0.03);
+            color: #11100e;
         }
 
-        /* ഐറ്റങ്ങളുടെ സ്റ്റൈൽ */
-        .single-dish {
+        /* 100% സ്ഥിരതയുള്ള 2-Column ഗ്രിഡ് ലേഔട്ട് */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 60px;
+            row-gap: 35px;
+        }
+        
+        /* ഓരോ വിഭവത്തിന്റെയും സ്റ്റൈൽ */
+        .menu-item {
             border-bottom: 1px solid #e6dfd5;
             padding-bottom: 25px;
+            animation: fadeInMenu 0.4s ease-in-out forwards;
         }
-        .dish-header {
+        .menu-item-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 8px;
         }
-        .single-dish h3 {
+        .menu-item h3 {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 1.45rem;
             font-weight: 500;
             margin: 0;
             color: #11100e;
         }
-        .single-dish .price {
+        .menu-item .price {
             color: #c9a66b;
             font-weight: 600;
             font-size: 1.05rem;
         }
-        .single-dish p {
+        .menu-item p {
             color: #8c8579;
             font-size: 0.88rem;
             line-height: 1.5;
             margin: 0;
         }
 
-        /* മൊബൈൽ ഫോണുകൾക്ക് വേണ്ടി */
+        /* മൊബൈൽ സ്ക്രീനുകളിൽ ഒറ്റ കോളമായി മാറാൻ */
         @media (max-width: 768px) {
-            .menu-grid-display {
-                grid-template-columns: 1fr !important;
+            .menu-grid {
+                grid-template-columns: 1fr;
                 row-gap: 30px;
             }
+        }
+
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
-        <!-- മായാത്ത ഇൻപുട്ട് ലോക്കുകൾ -->
-        <input type="radio" id="cat-starters" name="menu-tab-group" class="category-switcher" checked>
-        <input type="radio" id="cat-main" name="menu-tab-group" class="category-switcher">
-        <input type="radio" id="cat-desserts" name="menu-tab-group" class="category-switcher">
-        <input type="radio" id="cat-drinks" name="menu-tab-group" class="category-switcher">
-
         <div class="menu-header">
             <p>Our Menu</p>
             <h1>Crafted With Passion.</h1>
             <p class="subtitle">A carefully curated selection of dishes designed to delight every palate.</p>
         </div>
 
-        <!-- പ്രധാന കൺട്രോൾ ബട്ടണുകൾ -->
+        <!-- ഫിൽട്ടർ ബട്ടണുകൾ -->
         <div class="tab-container">
-            <label for="cat-starters" class="menu-btn-label">Starters</label>
-            <label for="cat-main" class="menu-btn-label">Main Course</label>
-            <label for="cat-desserts" class="menu-btn-label">Desserts</label>
-            <label for="cat-drinks" class="menu-btn-label">Drinks</label>
+            <button class="menu-btn active" onclick="filterMenu('starters', this)">Starters</button>
+            <button class="menu-btn" onclick="filterMenu('main-course', this)">Main Course</button>
+            <button class="menu-btn" onclick="filterMenu('desserts', this)">Desserts</button>
+            <button class="menu-btn" onclick="filterMenu('drinks', this)">Drinks</button>
         </div>
 
-        <!-- എല്ലാ വിഭവങ്ങളും അടങ്ങിയ ബോക്സ് -->
-        <div class="menu-box-wrapper">
+        <!-- വിഭവങ്ങൾ ദൃശ്യമാകുന്ന പ്രധാന ഗ്രിഡ് ബോക്സ് -->
+        <div id="menu-container-box" class="menu-grid">
+            <!-- ജാവാസ്ക്രിപ്റ്റ് വഴി ഇവിടെ ഐറ്റങ്ങൾ തനിയെ ലോഡ് ചെയ്യപ്പെടും -->
+        </div>
+    </div>
+
+    <script>
+        // ഡാറ്റ നഷ്ടപ്പെടാതിരിക്കാൻ എല്ലാ മെനു ഐറ്റങ്ങളും ഒരു സുരക്ഷിത Object ആയി സൂക്ഷിക്കുന്നു
+        const fullMenuDatabase = {
+            'starters': [
+                { name: "Burrata Garden Salad", price: "\$18", desc: "Creamy burrata, heirloom tomatoes, basil and balsamic glaze." },
+                { name: "Truffle Arancini", price: "\$16", desc: "Crispy risotto balls with black truffle and parmesan." },
+                { name: "Garlic Butter Prawns", price: "\$30", desc: "Succulent prawns with roasted garlic, herbs, and lemon." },
+                { name: "Wild Mushroom Bruschetta", price: "\$15", desc: "Toasted sourdough with wild mushrooms and parmesan." }
+            ],
+            'main-course': [
+                { name: "Black Truffle Pasta", price: "\$28", desc: "Handmade pasta, black truffle, parmesan and creamy sauce." },
+                { name: "Herb Grilled Salmon", price: "\$32", desc: "Fresh Atlantic salmon with herbs, lemon butter and vegetables." },
+                { name: "Prime Ribeye", price: "\$42", desc: "Premium aged ribeye with roasted garlic and rosemary jus." },
+                { name: "Wild Mushroom Risotto", price: "\$26", desc: "Arborio rice, wild mushrooms, parmesan and fresh herbs." }
+            ],
+            'desserts': [
+                { name: "Chocolate Fondant", price: "\$14", desc: "Warm dark chocolate cake with vanilla ice cream." },
+                { name: "Classic Tiramisu", price: "\$12", desc: "Espresso-soaked mascarpone, cocoa and ladyfingers." },
+                { name: "Vanilla Panna Cotta", price: "\$11", desc: "Silky vanilla panna cotta with seasonal berries." },
+                { name: "Lemon Tart", price: "\$13", desc: "Classic lemon curd tart with Italian meringue." }
+            ],
+            'drinks': [
+                { name: "La Vita Signature", price: "\$10", desc: "Passion fruit, citrus, mint and sparkling water." },
+                { name: "Sparkling Citrus", price: "\$8", desc: "Fresh orange, lemon and sparkling water." },
+                { name: "Espresso Martini", price: "\$14", desc: "Espresso with premium vodka and coffee liqueur." },
+                { name: "Mineral Water", price: "\$5", desc: "Premium still or sparkling mineral water." }
+            ]
+        };
+
+        // മെനു സ്ക്രീനിലേക്ക് പ്രിന്റ് ചെയ്യാനുള്ള പ്രധാന ഫങ്ക്ഷൻ
+        function filterMenu(category, clickedButton) {
+            const displayBox = document.getElementById('menu-container-box');
             
-            <!-- STARTERS -->
-            <div id="box-starters" class="menu-grid-display">
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Burrata Garden Salad</h3>
-                        <span class="price">$18</span>
-                    </div>
-                    <p>Creamy burrata, heirloom tomatoes, basil and balsamic glaze.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Truffle Arancini</h3>
-                        <span class="price">$16</span>
-                    </div>
-                    <p>Crispy risotto balls with black truffle and parmesan.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Garlic Butter Prawns</h3>
-                        <span class="price">$30</span>
-                    </div>
-                    <p>Succulent prawns with roasted garlic, herbs, and lemon.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Wild Mushroom Bruschetta</h3>
-                        <span class="price">$15</span>
-                    </div>
-                    <p>Toasted sourdough with wild mushrooms and parmesan.</p>
-                </div>
-            </div>
+            // 1. ആക്റ്റീവ് ബട്ടൺ സ്റ്റൈൽ മാറ്റുക
+            if (clickedButton) {
+                document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+                clickedButton.classList.add('active');
+            }
 
-            <!-- MAIN COURSE -->
-            <div id="box-main" class="menu-grid-display">
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Black Truffle Pasta</h3>
-                        <span class="price">$28</span>
-                    </div>
-                    <p>Handmade pasta, black truffle, parmesan and creamy sauce.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Herb Grilled Salmon</h3>
-                        <span class="price">$32</span>
-                    </div>
-                    <p>Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Prime Ribeye</h3>
-                        <span class="price">$42</span>
-                    </div>
-                    <p>Premium aged ribeye with roasted garlic and rosemary jus.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Wild Mushroom Risotto</h3>
-                        <span class="price">$26</span>
-                    </div>
-                    <p>Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
-                </div>
-            </div>
+            // 2. മുൻപത്തെ ഐറ്റങ്ങൾ ബോക്സിൽ നിന്നും പൂർണ്ണമായി ക്ലിയർ ചെയ്യുക
+            displayBox.innerHTML = "";
 
-            <!-- DESSERTS -->
-            <div id="box-desserts" class="menu-grid-display">
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Chocolate Fondant</h3>
-                        <span class="price">$14</span>
+            // 3. തിരഞ്ഞെടുത്ത കാറ്റഗറിയിലെ മുഴുവൻ വിഭവങ്ങളും ലൂപ്പ് ചെയ്ത് കൃത്യമായി നിർമ്മിക്കുക
+            const currentItems = fullMenuDatabase[category];
+            
+            currentItems.forEach(item => {
+                const itemHTML = `
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h3>${item.name}</h3>
+                            <span class="price">${item.price}</span>
+                        </div>
+                        <p>${item.desc}</p>
                     </div>
-                    <p>Warm dark chocolate cake with vanilla ice cream.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Classic Tiramisu</h3>
-                        <span class="price">$12</span>
-                    </div>
-                    <p>Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Vanilla Panna Cotta</h3>
-                        <span class="price">$11</span>
-                    </div>
-                    <p>Silky vanilla panna cotta with seasonal berries.</p>
-                </div>
-                <div class="single-dish">
-                    <div class="dish-header">
-                        <h3>Lemon Tart</h3>
-                        <span class="price">$13</span>
-                    </div>
-                    <p>Classic lemon curd tart with Italian meringue.</p>
-                </div>
-            </div>
+                `;
+                displayBox.innerHTML += itemHTML;
+            });
+        }
 
-            <!-- DRINKS -->
-            <div id="box-drinks" class="menu-grid-display">
+        // പേജ് ആദ്യമായി ലോഡ് ചെയ്യുമ്പോൾ ഡിഫോൾട്ടായി 'starters' മെനു കാണിക്കാൻ
+        window.onload = function() {
+            filterMenu('starters', null);
+        };
+    </script>
+
+</body>
+</html>
