@@ -41,9 +41,13 @@
             font-size: 1.05rem;
             max-width: 600px;
             margin: 0 auto;
-            text-transform: none;
-            letter-spacing: 0;
         }
+
+        /* ടാബുകൾ നിയന്ത്രിക്കാനുള്ള ഒളിപ്പിച്ചു വെച്ച റേഡിയോ ബട്ടണുകൾ */
+        .tab-input {
+            display: none;
+        }
+
         .tab-container {
             display: flex;
             justify-content: center;
@@ -51,7 +55,9 @@
             flex-wrap: wrap;
             margin-bottom: 60px;
         }
-        .menu-btn {
+
+        /* ബട്ടണുകളുടെ ഡിസൈൻ */
+        .menu-label {
             padding: 12px 28px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -62,17 +68,13 @@
             background: transparent;
             color: #706b63;
             transition: all 0.2s ease;
+            user-select: none;
         }
-        /* Active ബട്ടൺ സ്റ്റൈൽ */
-        .menu-btn.active {
-            background-color: #11100e;
-            color: #ffffff;
-            border-color: #11100e;
-        }
-        .menu-btn:hover:not(.active) {
+        .menu-label:hover {
             background-color: rgba(0,0,0,0.03);
             color: #11100e;
         }
+
         /* രണ്ട് കോളങ്ങളുള്ള മെനു ഗ്രിഡ് */
         .menu-grid {
             display: grid;
@@ -80,10 +82,34 @@
             column-gap: 60px;
             row-gap: 35px;
         }
-        .menu-item {
-            display: none; /* JS വഴി നിയന്ത്രിക്കാൻ തുടക്കത്തിൽ ഒളിപ്പിച്ചു വെക്കുന്നു */
+
+        /* തുടക്കത്തിൽ എല്ലാ വിഭവങ്ങളും ഒളിപ്പിച്ചു വെക്കുന്നു */
+        .starters-section, .main-section, .desserts-section, .drinks-section {
+            display: none;
+        }
+
+        /* ഏത് ബട്ടണാണോ ക്ലിക്ക് ചെയ്യുന്നത്, അതിനനുസരിച്ചുള്ള വിഭവങ്ങൾ കാണിക്കുകയും ബട്ടൺ കറുപ്പാക്കുകയും ചെയ്യുന്നു */
+        #tab-starters:checked ~ .tab-container label[for="tab-starters"],
+        #tab-main:checked ~ .tab-container label[for="tab-main"],
+        #tab-desserts:checked ~ .tab-container label[for="tab-desserts"],
+        #tab-drinks:checked ~ .tab-container label[for="tab-drinks"] {
+            background-color: #11100e;
+            color: #ffffff;
+            border-color: #11100e;
+        }
+
+        #tab-starters:checked ~ .menu-grid .starters-section,
+        #tab-main:checked ~ .menu-grid .main-section,
+        #tab-desserts:checked ~ .menu-grid .desserts-section,
+        #tab-drinks:checked ~ .menu-grid .drinks-section {
+            display: block;
+        }
+
+        /* ഓരോ മെനു ഐറ്റത്തിന്റെയും ഡിസൈൻ */
+        .menu-item-content {
             border-bottom: 1px solid #e6dfd5;
             padding-bottom: 25px;
+            margin-bottom: 10px;
             animation: fadeIn 0.4s ease forwards;
         }
         .menu-item-header {
@@ -92,25 +118,25 @@
             align-items: baseline;
             margin-bottom: 8px;
         }
-        .menu-item h3 {
+        .menu-item-content h3 {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 1.45rem;
             font-weight: 500;
             margin: 0;
             color: #11100e;
         }
-        .menu-item .price {
+        .menu-item-content .price {
             color: #c9a66b;
             font-weight: 600;
             font-size: 1.05rem;
         }
-        .menu-item p {
+        .menu-item-content p {
             color: #8c8579;
             font-size: 0.88rem;
             line-height: 1.5;
             margin: 0;
         }
-        /* മൊബൈൽ ഫോണുകളിൽ ഒരു കോളമായി മാറാൻ */
+
         @media (max-width: 768px) {
             .menu-grid {
                 grid-template-columns: 1fr;
@@ -126,159 +152,125 @@
 <body>
 
     <div class="container">
+        
+        <!-- മെനു കൺട്രോൾ ചെയ്യാനുള്ള റേഡിയോ ബട്ടണുകൾ -->
+        <input type="radio" id="tab-starters" name="menu-tabs" class="tab-input" checked>
+        <input type="radio" id="tab-main" name="menu-tabs" class="tab-input">
+        <input type="radio" id="tab-desserts" name="menu-tabs" class="tab-input">
+        <input type="radio" id="tab-drinks" name="menu-tabs" class="tab-input">
+
         <div class="menu-header">
             <p>Our Menu</p>
             <h1>Crafted With Passion.</h1>
             <p class="subtitle">A carefully curated selection of dishes designed to delight every palate.</p>
         </div>
 
-        <!-- ഫിൽട്ടർ ബട്ടണുകൾ -->
+        <!-- ഫിൽട്ടർ ബട്ടണുകൾ (Labels) -->
         <div class="tab-container">
-            <button class="menu-btn active" data-category="starters">Starters</button>
-            <button class="menu-btn" data-category="main-course">Main Course</button>
-            <button class="menu-btn" data-category="desserts">Desserts</button>
-            <button class="menu-btn" data-category="drinks">Drinks</button>
+            <label for="tab-starters" class="menu-label">Starters</label>
+            <label for="tab-main" class="menu-label">Main Course</label>
+            <label for="tab-desserts" class="menu-label">Desserts</label>
+            <label for="tab-drinks" class="menu-label">Drinks</label>
         </div>
 
-        <!-- മെനു ലിസ്റ്റ് (ഗ്രിഡ് ലേഔട്ട്) -->
+        <!-- മെനു ലിസ്റ്റ് -->
         <div class="menu-grid">
             
             <!-- STARTERS -->
-            <div class="menu-item" data-item="starters">
-                <div class="menu-item-header">
-                    <h3>Burrata Garden Salad</h3>
-                    <span class="price">$18</span>
+            <div class="starters-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Burrata Garden Salad</h3>
+                        <span class="price">$18</span>
+                    </div>
+                    <p>Creamy burrata, heirloom tomatoes, basil and balsamic glaze.</p>
                 </div>
-                <p>Creamy burrata, heirloom tomatoes, basil and balsamic glaze.</p>
             </div>
-
-            <div class="menu-item" data-item="starters">
-                <div class="menu-item-header">
-                    <h3>Truffle Arancini</h3>
-                    <span class="price">$16</span>
+            <div class="starters-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Truffle Arancini</h3>
+                        <span class="price">$16</span>
+                    </div>
+                    <p>Crispy risotto balls with black truffle and parmesan.</p>
                 </div>
-                <p>Crispy risotto balls with black truffle and parmesan.</p>
             </div>
-
-            <div class="menu-item" data-item="starters">
-                <div class="menu-item-header">
-                    <h3>Garlic Butter Prawns</h3>
-                    <span class="price">$30</span>
+            <div class="starters-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Garlic Butter Prawns</h3>
+                        <span class="price">$30</span>
+                    </div>
+                    <p>Succulent prawns with roasted garlic, herbs, and lemon.</p>
                 </div>
-                <p>Succulent prawns with roasted garlic, herbs, and lemon.</p>
             </div>
-
-            <div class="menu-item" data-item="starters">
-                <div class="menu-item-header">
-                    <h3>Wild Mushroom Bruschetta</h3>
-                    <span class="price">$15</span>
+            <div class="starters-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Wild Mushroom Bruschetta</h3>
+                        <span class="price">$15</span>
+                    </div>
+                    <p>Toasted sourdough with wild mushrooms and parmesan.</p>
                 </div>
-                <p>Toasted sourdough with wild mushrooms and parmesan.</p>
             </div>
 
             <!-- MAIN COURSE -->
-            <div class="menu-item" data-item="main-course">
-                <div class="menu-item-header">
-                    <h3>Black Truffle Pasta</h3>
-                    <span class="price">$28</span>
+            <div class="main-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Black Truffle Pasta</h3>
+                        <span class="price">$28</span>
+                    </div>
+                    <p>Handmade pasta, black truffle, parmesan and creamy sauce.</p>
                 </div>
-                <p>Handmade pasta, black truffle, parmesan and creamy sauce.</p>
             </div>
-
-            <div class="menu-item" data-item="main-course">
-                <div class="menu-item-header">
-                    <h3>Herb Grilled Salmon</h3>
-                    <span class="price">$32</span>
+            <div class="main-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Herb Grilled Salmon</h3>
+                        <span class="price">$32</span>
+                    </div>
+                    <p>Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
                 </div>
-                <p>Fresh Atlantic salmon with herbs, lemon butter and vegetables.</p>
             </div>
-
-            <div class="menu-item" data-item="main-course">
-                <div class="menu-item-header">
-                    <h3>Prime Ribeye</h3>
-                    <span class="price">$42</span>
+            <div class="main-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Prime Ribeye</h3>
+                        <span class="price">$42</span>
+                    </div>
+                    <p>Premium aged ribeye with roasted garlic and rosemary jus.</p>
                 </div>
-                <p>Premium aged ribeye with roasted garlic and rosemary jus.</p>
             </div>
-
-            <div class="menu-item" data-item="main-course">
-                <div class="menu-item-header">
-                    <h3>Wild Mushroom Risotto</h3>
-                    <span class="price">$26</span>
+            <div class="main-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Wild Mushroom Risotto</h3>
+                        <span class="price">$26</span>
+                    </div>
+                    <p>Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
                 </div>
-                <p>Arborio rice, wild mushrooms, parmesan and fresh herbs.</p>
             </div>
 
             <!-- DESSERTS -->
-            <div class="menu-item" data-item="desserts">
-                <div class="menu-item-header">
-                    <h3>Chocolate Fondant</h3>
-                    <span class="price">$14</span>
+            <div class="desserts-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Chocolate Fondant</h3>
+                        <span class="price">$14</span>
+                    </div>
+                    <p>Warm dark chocolate cake with vanilla ice cream.</p>
                 </div>
-                <p>Warm dark chocolate cake with vanilla ice cream.</p>
             </div>
-
-            <div class="menu-item" data-item="desserts">
-                <div class="menu-item-header">
-                    <h3>Classic Tiramisu</h3>
-                    <span class="price">$12</span>
+            <div class="desserts-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3>Classic Tiramisu</h3>
+                        <span class="price">$12</span>
+                    </div>
+                    <p>Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
                 </div>
-                <p>Espresso-soaked mascarpone, cocoa and ladyfingers.</p>
             </div>
-
-            <div class="menu-item" data-item="desserts">
-                <div class="menu-item-header">
-                    <h3>Vanilla Panna Cotta</h3>
-                    <span class="price">$11</span>
-                </div>
-                <p>Silky vanilla panna cotta with seasonal berries.</p>
-            </div>
-
-            <div class="menu-item" data-item="desserts">
-                <div class="menu-item-header">
-                    <h3>Lemon Tart</h3>
-                    <span class="price">$13</span>
-                </div>
-                <p>Classic lemon curd tart with Italian meringue.</p>
-            </div>
-
-            <!-- DRINKS -->
-            <div class="menu-item" data-item="drinks">
-                <div class="menu-item-header">
-                    <h3>La Vita Signature</h3>
-                    <span class="price">$10</span>
-                </div>
-                <p>Passion fruit, citrus, mint and sparkling water.</p>
-            </div>
-
-            <div class="menu-item" data-item="drinks">
-                <div class="menu-item-header">
-                    <h3>Sparkling Citrus</h3>
-                    <span class="price">$8</span>
-                </div>
-                <p>Fresh orange, lemon and sparkling water.</p>
-            </div>
-
-            <div class="menu-item" data-item="drinks">
-                <div class="menu-item-header">
-                    <h3>Espresso Martini</h3>
-                    <span class="price">$14</span>
-                </div>
-                <p>Espresso with premium vodka and coffee liqueur.</p>
-            </div>
-
-            <div class="menu-item" data-item="drinks">
-                <div class="menu-item-header">
-                    <h3>Mineral Water</h3>
-                    <span class="price">$5</span>
-                </div>
-                <p>Premium still or sparkling mineral water.</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- JavaScript ഫങ്ക്ഷൻ -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.menu-btn');
+            <div class="desserts-section">
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
